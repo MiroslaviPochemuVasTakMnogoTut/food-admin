@@ -1,4 +1,23 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "cursorOffset": -1,
+  "editorconfig": false,
+  "embeddedLanguageFormatting": "auto",
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "useTabs": false,
+  "tabWidth": 2,
+  "singleAttributePerLine": false,
+  "printWidth": 80,
+  "quoteProps": "as-needed",
+  "rangeStart": 0,
+  "rangeEnd": 80,
+  "semi": true,
+  "proseWrap": "preserve",
+  "jsxSingleQuote": false
 }
