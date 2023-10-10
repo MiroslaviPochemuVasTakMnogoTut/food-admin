@@ -1,5 +1,8 @@
-export class CreateRestaurantEmployeeDto {
-  readonly employee: number;
+// import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+// import { User } from 'src/users/entities/user.entity';
 
-  readonly restaurant:number;
+export class CreateRestaurantEmployeeDto {
+  // readonly employee: User;
+
+  // readonly restaurant: Restaurant;
 }
