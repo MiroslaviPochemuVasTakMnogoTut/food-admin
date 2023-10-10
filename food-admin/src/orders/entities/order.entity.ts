@@ -2,7 +2,7 @@ import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'orders' })
+@Entity({ name: 'order' })
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;

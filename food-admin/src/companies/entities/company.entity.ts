@@ -1,7 +1,7 @@
 import { Brand } from 'src/brands/entities/brand.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'companies' })
+@Entity({ name: 'company' })
 export class Company {
   @PrimaryGeneratedColumn()
   id: number;
