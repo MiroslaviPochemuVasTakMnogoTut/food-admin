@@ -12,7 +12,14 @@ export class RestaurantEmployeesService {
     private restEmpRepository: Repository<RestaurantEmployee>,
   ){}
   create(createRestaurantEmployeeDto: CreateRestaurantEmployeeDto) {
-    const restEmp = this.restEmpRepository.create(createRestaurantEmployeeDto);
+    const { restaurant, employee , ...dto} = createRestaurantEmployeeDto;
+
+    const restEmp = this.restEmpRepository.create({
+      restaurant: {id : restaurant},
+      employee: {id: employee},
+      ...dto
+
+    });
     return this.restEmpRepository.save(restEmp);
   }
 
@@ -31,4 +38,9 @@ export class RestaurantEmployeesService {
   remove(id: number) {
     return this.restEmpRepository.delete(id);
   }
+
+  findWorkers(restId: number){
+    return this.restEmpRepository.find({where:{restaurant: {id: restId}}})
+  }
+
 }

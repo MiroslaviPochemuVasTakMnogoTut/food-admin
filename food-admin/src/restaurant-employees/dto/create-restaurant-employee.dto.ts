@@ -2,7 +2,9 @@
 // import { User } from 'src/users/entities/user.entity';
 
 export class CreateRestaurantEmployeeDto {
-  // readonly employee: User;
+  readonly employee: number;
 
-  // readonly restaurant: Restaurant;
+  readonly restaurant: number;
+
+  readonly role: number;
 }
