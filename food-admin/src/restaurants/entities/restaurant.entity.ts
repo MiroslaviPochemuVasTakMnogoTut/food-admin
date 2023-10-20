@@ -7,10 +7,12 @@ import {
   // ManyToMany,
   OneToMany,
   ManyToOne,
+  ManyToMany,
 } from 'typeorm';
 
 import { Brand } from 'src/brands/entities/brand.entity';
 import { RestaurantEmployee } from 'src/restaurant-employees/entities/restaurant-employee.entity';
+import { Item } from 'src/items/entities/item.entity';
 
 @Entity()
 export class Restaurant {
@@ -28,4 +30,7 @@ export class Restaurant {
     (restaurantEmployee) => restaurantEmployee.restaurant,
   )
   employees: RestaurantEmployee[];
+
+  @ManyToMany(() => Item)
+  menu: Item[]
 }

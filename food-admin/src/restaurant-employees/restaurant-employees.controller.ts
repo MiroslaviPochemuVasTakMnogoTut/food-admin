@@ -41,4 +41,9 @@ export class RestaurantEmployeesController {
   remove(@Param('id') id: string) {
     return this.restaurantEmployeesService.remove(+id);
   }
+
+  @Get(':restId')
+  findWorkers(@Param('restId') restId: string){
+    return this.restaurantEmployeesService.findWorkers(+restId);
+  }
 }

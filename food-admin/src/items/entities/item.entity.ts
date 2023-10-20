@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'item' })
 export class Item {
@@ -22,4 +23,7 @@ export class Item {
 
   @Column()
   image: string;
+
+  @ManyToMany(() => Restaurant)
+  inMenu: Restaurant[]
 }
