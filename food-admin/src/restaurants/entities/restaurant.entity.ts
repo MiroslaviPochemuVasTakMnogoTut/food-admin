@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToOne,
   ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 import { Brand } from 'src/brands/entities/brand.entity';
@@ -32,5 +33,6 @@ export class Restaurant {
   employees: RestaurantEmployee[];
 
   @ManyToMany(() => Item)
+  @JoinTable()
   menu: Item[]
 }

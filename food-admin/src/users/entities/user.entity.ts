@@ -3,7 +3,7 @@ import { RestaurantEmployee } from 'src/restaurant-employees/entities/restaurant
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity({
-  name: 'users',
+  name: 'user',
 })
 export class User {
   @PrimaryGeneratedColumn()
