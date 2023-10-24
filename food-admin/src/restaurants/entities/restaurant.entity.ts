@@ -9,6 +9,7 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  Point,
 } from 'typeorm';
 
 import { Brand } from 'src/brands/entities/brand.entity';
@@ -20,8 +21,8 @@ export class Restaurant {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Brand)
-  brand: number;
+  @ManyToOne(() => Brand, (brand)=>brand.restaurants)
+  brand: Brand;
 
   @Column()
   address: string;
@@ -35,4 +36,7 @@ export class Restaurant {
   @ManyToMany(() => Item)
   @JoinTable()
   menu: Item[]
+
+  @Column({type: 'geometry', spatialFeatureType: 'point', srid: 4326, nullable: true})
+  geometry:Point
 }

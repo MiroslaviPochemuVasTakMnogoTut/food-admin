@@ -9,4 +9,6 @@ export class CreateRestaurantDto {
 
   @IsString()
   readonly time: string;
+
+  readonly coordinates: number[];
 }

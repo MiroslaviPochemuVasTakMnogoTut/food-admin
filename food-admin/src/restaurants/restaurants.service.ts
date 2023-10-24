@@ -13,21 +13,38 @@ export class RestaurantsService {
     
   ) {}
 
-  create(createRestaurantDto: CreateRestaurantDto) {
-    const restaurant = this.restaurantRepository.create(createRestaurantDto);
+  create({brand, coordinates, ...dto}: CreateRestaurantDto) {
+    const restaurant = this.restaurantRepository.create({
+      brand:{id:brand},
+      geometry: {type: 'Point', coordinates},
+      ...dto
+    });
     return this.restaurantRepository.save(restaurant);
   }
 
   findAll() {
-    return this.restaurantRepository.find();
+    return this.restaurantRepository.find({
+      select:{
+        brand:{
+          name:true
+        }
+      },
+      relations:{
+        brand: true
+      }
+    });
   }
 
   findOne(id: number) {
     return this.restaurantRepository.findOneBy({ id });
   }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return this.restaurantRepository.update({ id }, updateRestaurantDto);
+  update(id: number, {brand, coordinates,...dto}: UpdateRestaurantDto) {
+    return this.restaurantRepository.update({ id }, {
+      brand: brand ? {id:brand} : undefined,
+      geometry: coordinates ? {type: 'Point', coordinates} : undefined,
+      ...dto
+    });
   }
 
   remove(id: number) {
