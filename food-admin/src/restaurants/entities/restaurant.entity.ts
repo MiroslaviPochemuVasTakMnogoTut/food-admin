@@ -24,22 +24,22 @@ export class Restaurant {
   @ManyToOne(() => Brand, (brand)=>brand.restaurants)
   brand: Brand;
 
-  @Column()
+  @Column({nullable: true})
   description: string;
 
-  @Column()
+  @Column({nullable: true})
   img: string;
 
-  @Column()
+  @Column({nullable: true})
   address: string;
 
   @Column({nullable: true})
   costs: number;
   
-  @Column()
+  @Column({nullable: true})
   phone: string;
   
-  @Column()
+  @Column({nullable: true})
   time: string;
 
   @Column({type: 'geometry', spatialFeatureType: 'point', srid: 4326, nullable: true})
