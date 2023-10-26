@@ -25,14 +25,29 @@ export class Restaurant {
   brand: Brand;
 
   @Column()
+  description: string;
+
+  @Column()
+  img: string;
+
+  @Column()
   address: string;
 
+  @Column()
+  costs: number;
+  
+  @Column()
+  phone: string;
+  
+  @Column()
+  time: string;
+  
   @OneToMany(
     () => RestaurantEmployee,
     (restaurantEmployee) => restaurantEmployee.restaurant,
-  )
+    )
+    
   employees: RestaurantEmployee[];
-
   @ManyToMany(() => Item)
   @JoinTable()
   menu: Item[]
