@@ -25,5 +25,5 @@ export class Item {
   image: string;
 
   @ManyToMany(() => Restaurant)
-  inMenu: Restaurant[]
+  inMenu: Restaurant[];
 }
