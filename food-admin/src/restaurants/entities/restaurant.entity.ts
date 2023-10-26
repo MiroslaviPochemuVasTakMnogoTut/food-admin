@@ -27,6 +27,12 @@ export class Restaurant {
   @Column()
   address: string;
 
+  @Column({nullable: true})
+  costs: number;
+
+  @Column({type: 'geometry', spatialFeatureType: 'point', srid: 4326, nullable: true})
+  geometry:Point
+
   @OneToMany(
     () => RestaurantEmployee,
     (restaurantEmployee) => restaurantEmployee.restaurant,
@@ -37,6 +43,4 @@ export class Restaurant {
   @JoinTable()
   menu: Item[]
 
-  @Column({type: 'geometry', spatialFeatureType: 'point', srid: 4326, nullable: true})
-  geometry:Point
 }
