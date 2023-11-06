@@ -10,6 +10,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { OrdersModule } from './orders/orders.module';
 import { ItemsModule } from './items/items.module';
 import { RestaurantEmployeesModule } from './restaurant-employees/restaurant-employees.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { RestaurantEmployeesModule } from './restaurant-employees/restaurant-emp
     OrdersModule,
     ItemsModule,
     RestaurantEmployeesModule,
+    AuthModule,
     // RestEmpModule,
   ],
   controllers: [AppController],

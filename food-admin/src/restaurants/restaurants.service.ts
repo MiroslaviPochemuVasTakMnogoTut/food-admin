@@ -50,4 +50,9 @@ export class RestaurantsService {
   remove(id: number) {
     return this.restaurantRepository.delete(id);
   }
+
+
+  // addToMenu(){
+  //   return this.restaurantRepository.sa
+  // }
 }
