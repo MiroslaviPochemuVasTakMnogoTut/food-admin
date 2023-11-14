@@ -19,12 +19,12 @@ import { AuthGuard } from './auth.guard';
     JwtModule.register({
       global:true,
       secret: jwtConstants.secret,
-      signOptions: {expiresIn: '160s'},
+      signOptions: {expiresIn: '3600s'},
     })
   ],
   providers: [AuthService, 
               UsersService, 
-              { provide: APP_GUARD, useClass: AuthGuard }],// Закомментировать, чтобы выключить запрос токена для API
+              /* { provide: APP_GUARD, useClass: AuthGuard } */],// Закомментировать, чтобы выключить запрос токена для API
   exports: [AuthService]
 })
 export class AuthModule {}

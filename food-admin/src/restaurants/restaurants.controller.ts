@@ -12,11 +12,13 @@ import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 
 @ApiTags('Restaurants')
 @Controller('restaurants')
 export class RestaurantsController {
-  constructor(private readonly restaurantsService: RestaurantsService) {}
+  constructor(
+    private readonly restaurantsService: RestaurantsService,) {}
 
   @Post()
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
@@ -44,5 +46,11 @@ export class RestaurantsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.restaurantsService.remove(+id);
+  }
+
+  @Post('addToMenu')
+  addToMenu(@Body() addItemToMenuDto: AddItemToMenuDto){
+    // addItemToMenuDto.
+    return this.restaurantsService.addToMenu(addItemToMenuDto);
   }
 }

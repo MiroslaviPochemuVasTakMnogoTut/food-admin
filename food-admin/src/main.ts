@@ -10,11 +10,22 @@ async function bootstrap() {
     .setTitle('Restaurant api')
     .setDescription('The cats API description')
     .setVersion('1.0')
+    .setBasePath('')
+    .addBearerAuth({
+      description: 'Bearer JWT auth',
+      type: 'http',
+      in: 'header',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+
+    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+ whitelist:true
+  }));
 
   app.enableCors();
   await app.listen(3000);

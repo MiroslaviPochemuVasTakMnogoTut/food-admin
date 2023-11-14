@@ -10,7 +10,7 @@ import {
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Items')
 @Controller('items')
@@ -22,6 +22,7 @@ export class ItemsController {
     return this.itemsService.create(createItemDto);
   }
 
+  @ApiBearerAuth()
   @Get()
   findAll() {
     return this.itemsService.findAll();

@@ -12,14 +12,8 @@ export class RestaurantEmployeesService {
     private restEmpRepository: Repository<RestaurantEmployee>,
   ){}
   create(createRestaurantEmployeeDto: CreateRestaurantEmployeeDto) {
-    const { restaurant, employee , ...dto} = createRestaurantEmployeeDto;
 
-    const restEmp = this.restEmpRepository.create({
-      restaurant: {id : restaurant},
-      employee: {id: employee},
-      ...dto
-
-    });
+    const restEmp = this.restEmpRepository.create(createRestaurantEmployeeDto);
     return this.restEmpRepository.save(restEmp);
   }
 

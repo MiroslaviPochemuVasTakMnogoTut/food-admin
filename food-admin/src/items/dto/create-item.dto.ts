@@ -1,5 +1,8 @@
-export class CreateItemDto {
-  readonly title: string;
+import { OmitType } from '@nestjs/swagger';
+import { Item } from '../entities/item.entity';
 
-  readonly description: string;
+export class CreateItemDto extends OmitType(Item, ['id', 'inMenu']) {
+  // readonly title: string;
+
+  // readonly description: string;
 }

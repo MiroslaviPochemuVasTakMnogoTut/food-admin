@@ -4,6 +4,8 @@ import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
+import { MenuItem } from './entities/menu_item.entity';
+import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 
 @Injectable()
 export class RestaurantsService {
@@ -11,14 +13,13 @@ export class RestaurantsService {
     @InjectRepository(Restaurant)
     private restaurantRepository: Repository<Restaurant>,
     
+    @InjectRepository(MenuItem)
+    private menuRepository: Repository<MenuItem>,
+    
   ) {}
 
-  create({brand, coordinates, ...dto}: CreateRestaurantDto) {
-    const restaurant = this.restaurantRepository.create({
-      brand:{id:brand},
-      geometry: {type: 'Point', coordinates},
-      ...dto
-    });
+  create(dto: CreateRestaurantDto) {
+    const restaurant = this.restaurantRepository.create(dto);
     return this.restaurantRepository.save(restaurant);
   }
 
@@ -30,7 +31,10 @@ export class RestaurantsService {
         }
       },
       relations:{
-        brand: true
+        brand: true,
+        menu: {
+          item: true,
+        },
       }
     });
   }
@@ -39,10 +43,9 @@ export class RestaurantsService {
     return this.restaurantRepository.findOneBy({ id });
   }
 
-  update(id: number, {brand, coordinates,...dto}: UpdateRestaurantDto) {
+  update(id: number, { ...dto}: UpdateRestaurantDto) {
     return this.restaurantRepository.update({ id }, {
-      brand: brand ? {id:brand} : undefined,
-      geometry: coordinates ? {type: 'Point', coordinates} : undefined,
+     
       ...dto
     });
   }
@@ -52,7 +55,8 @@ export class RestaurantsService {
   }
 
 
-  // addToMenu(){
-  //   return this.restaurantRepository.sa
-  // }
+  addToMenu(addItemToMenu: AddItemToMenuDto){
+    const menuItem = this.menuRepository.create(addItemToMenu);
+    return this.menuRepository.save(menuItem);
+  }
 }

@@ -11,6 +11,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ItemsModule } from './items/items.module';
 import { RestaurantEmployeesModule } from './restaurant-employees/restaurant-employees.module';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
     ItemsModule,
     RestaurantEmployeesModule,
     AuthModule,
+    CategoryModule,
     // RestEmpModule,
   ],
   controllers: [AppController],
