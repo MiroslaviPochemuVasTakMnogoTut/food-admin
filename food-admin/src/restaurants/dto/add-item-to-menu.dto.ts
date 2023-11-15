@@ -17,4 +17,4 @@ export class AddItemToMenuDto/* {
     type: "number",
   })
   readonly category?: Category;
-}  */ extends OmitType(MenuItem,['id', 'restaurant', 'category', 'item']){}
+}  */ extends OmitType(MenuItem,['id', /* 'restaurant', */ 'category', 'item']){}

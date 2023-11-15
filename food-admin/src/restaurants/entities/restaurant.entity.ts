@@ -16,6 +16,7 @@ import { Brand } from 'src/brands/entities/brand.entity';
 import { RestaurantEmployee } from 'src/restaurant-employees/entities/restaurant-employee.entity';
 import { Item } from 'src/items/entities/item.entity';
 import { MenuItem } from './menu_item.entity';
+import { Category } from 'src/category/entities/category.entity';
 
 @Entity()
 export class Restaurant {
@@ -54,8 +55,11 @@ export class Restaurant {
   employees: RestaurantEmployee[];
 
   
-  // @JoinTable()
-  @OneToMany(() => MenuItem, (item) => item.restaurant)
-  menu: MenuItem[];
+  // // @JoinTable()
+  // @OneToMany(() => MenuItem, (item) => item.restaurant)
+  // menu: MenuItem[];
+
+  @OneToMany(() => Category, (cat) => cat.rest)
+  menu: Category[];
 
 }

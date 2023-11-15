@@ -23,20 +23,26 @@ export class RestaurantsService {
     return this.restaurantRepository.save(restaurant);
   }
 
-  findAll() {
-    return this.restaurantRepository.find({
+  async findAll() {
+
+    const restaurants = this.restaurantRepository.find({
       select:{
         brand:{
           name:true
-        }
+        },
       },
+      
       relations:{
         brand: true,
         menu: {
-          item: true,
-        },
+            items: {
+              category: false,
+            }
+          },
       }
     });
+
+    return restaurants
   }
 
   findOne(id: number) {

@@ -1,4 +1,10 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Restaurant } from './restaurant.entity';
 import { Item } from 'src/items/entities/item.entity';
 import { Category } from 'src/category/entities/category.entity';
@@ -26,10 +32,10 @@ export class MenuItem {
   @Column()
   categoryId: number;
 
-  @ManyToOne(()=> Restaurant, (restaurant) => restaurant.menu)
-  @JoinColumn({name: 'restId'})
-  // @Transform((value)=>({id:value}),{toPlainOnly:true})
-  restaurant: Restaurant;
+  // @ManyToOne(()=> Restaurant, (restaurant) => restaurant.menu)
+  // @JoinColumn({name: 'restId'})
+  // // @Transform((value)=>({id:value}),{toPlainOnly:true})
+  // restaurant: Restaurant;
   
   @ManyToOne(() => Item, (item) => item.inMenu)
   @JoinColumn({name: 'itemId'})
