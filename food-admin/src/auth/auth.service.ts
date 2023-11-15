@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,10 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ){}
+
+  signup(createUserDto: CreateUserDto){
+    return this.usersService.create(createUserDto);
+  }
   
   async login(createAuthDto: CreateAuthDto) {
     const user = await this.usersService.findByEmail(createAuthDto.login)
