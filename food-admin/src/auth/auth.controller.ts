@@ -33,7 +33,7 @@ export class AuthController {
   @Delete('logout')
   logout()
   {
-
+    
   }
 
   @Post('refresh') 
