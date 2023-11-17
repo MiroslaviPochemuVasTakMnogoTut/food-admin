@@ -1,8 +1,10 @@
+import { IsInt, IsString } from 'class-validator';
 import { Company } from 'src/companies/entities/company.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -13,9 +15,15 @@ export class Brand {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Company)
-  company: number;
+  @IsInt()
+  @Column()
+  companyId: number;
 
+  @ManyToOne(() => Company, com => com.brands)
+  @JoinColumn({name: 'comanyId'})
+  company: Company;
+
+  @IsString()
   @Column()
   name: string;
 
