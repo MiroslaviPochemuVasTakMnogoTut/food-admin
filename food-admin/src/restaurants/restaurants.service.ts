@@ -46,7 +46,22 @@ export class RestaurantsService {
   }
 
   findOne(id: number) {
-    return this.restaurantRepository.findOneBy({ id });
+    return this.restaurantRepository.findOne({ 
+      where: {id},
+      select: {
+        brand: {
+          name: true,
+        }
+      },
+      relations: {
+        brand: true,
+        menu: {
+          items:{
+            category: false,
+          }
+        }
+      }
+     });
   }
 
   update(id: number, { ...dto}: UpdateRestaurantDto) {
