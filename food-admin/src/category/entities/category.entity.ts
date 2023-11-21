@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 import { MenuItem } from 'src/restaurants/entities/menu_item.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -11,10 +11,14 @@ export class Category {
   @Column()
   @IsString()
   title: string;
+  
+  @Column()
+  @IsInt()
+  restId: number;
 
   @OneToMany(() => MenuItem, (menu) => menu.category)
   items: MenuItem[];
 
-  @ManyToOne(() => Restaurant, (rest) => rest.menu)
+  @ManyToOne(() => Restaurant,(rest)=>rest.menu)
   rest: Restaurant;
 }

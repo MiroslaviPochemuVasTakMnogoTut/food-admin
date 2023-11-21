@@ -17,7 +17,16 @@ export class ItemsService {
   }
 
   findAll() {
-    return this.itemRepository.find();
+    return this.itemRepository.find({
+      relations: {
+        inMenu: {
+          category: {
+            items: false,
+          },
+          item: false,
+        }
+      }
+    });
   }
 
   findOne(id: number) {

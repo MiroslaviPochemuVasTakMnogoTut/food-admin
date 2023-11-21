@@ -36,6 +36,7 @@ export class RestaurantsService {
         brand: true,
         menu: {
             items: {
+              item: true,
               category: false,
             }
           },
@@ -57,6 +58,7 @@ export class RestaurantsService {
         brand: true,
         menu: {
           items:{
+            item: true,
             category: false,
           }
         }
