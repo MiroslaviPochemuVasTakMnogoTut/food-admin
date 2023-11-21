@@ -1,0 +1,13 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Restaurant {
+  id: Int!
+  description: String
+  address: String
+}
+
+type Query {
+  restaurants: [Restaurant!]!
+}

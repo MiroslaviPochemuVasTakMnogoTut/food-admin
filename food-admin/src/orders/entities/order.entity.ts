@@ -1,16 +1,18 @@
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+@ApiBearerAuth()
 @Entity({ name: 'order' })
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(()=> User)
+  @ManyToOne(() => User)
   uid: number;
 
-  @ManyToOne(()=> Restaurant)
+  @ManyToOne(() => Restaurant)
   restid: number;
 
   @Column()

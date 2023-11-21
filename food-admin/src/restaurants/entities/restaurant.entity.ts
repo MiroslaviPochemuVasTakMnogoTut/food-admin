@@ -17,21 +17,26 @@ import { RestaurantEmployee } from 'src/restaurant-employees/entities/restaurant
 import { Item } from 'src/items/entities/item.entity';
 import { MenuItem } from './menu_item.entity';
 import { Category } from 'src/category/entities/category.entity';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity()
 export class Restaurant {
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
   @ManyToOne(() => Brand, (brand)=>brand.restaurants)
   brand: Brand;
 
+  @Field({nullable:true})
   @Column({nullable: true})
   description: string;
 
   @Column({nullable: true})
   img: string;
 
+  @Field({nullable:true})
   @Column({nullable: true})
   address: string;
 

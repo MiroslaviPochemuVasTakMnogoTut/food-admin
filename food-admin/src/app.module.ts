@@ -12,6 +12,12 @@ import { ItemsModule } from './items/items.module';
 import { RestaurantEmployeesModule } from './restaurant-employees/restaurant-employees.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Restaurant } from './restaurants/entities/restaurant.entity';
+import { join } from 'path';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+
 
 @Module({
   imports: [
@@ -25,6 +31,12 @@ import { CategoryModule } from './category/category.module';
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
       autoLoadEntities: true,
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     UsersModule,
     RestaurantsModule,

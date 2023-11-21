@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ApiBearerAuth, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
@@ -25,8 +25,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({
  whitelist:true
-  }));
 
+  }));
+  app.useGlobalInterceptors()
   app.enableCors();
   await app.listen(3000);
 }

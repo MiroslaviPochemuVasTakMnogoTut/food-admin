@@ -14,6 +14,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Items')
 @Controller('items')
+@ApiBearerAuth()
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
@@ -22,7 +23,6 @@ export class ItemsController {
     return this.itemsService.create(createItemDto);
   }
 
-  @ApiBearerAuth()
   @Get()
   findAll() {
     return this.itemsService.findAll();

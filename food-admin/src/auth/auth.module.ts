@@ -24,7 +24,7 @@ import { AuthGuard } from './auth.guard';
   ],
   providers: [AuthService, 
               UsersService, 
-              /* { provide: APP_GUARD, useClass: AuthGuard } */],// Закомментировать, чтобы выключить запрос токена для API
+              { provide: APP_GUARD, useClass: AuthGuard, }],// Закомментировать, чтобы выключить запрос токена для API
   exports: [AuthService]
 })
 export class AuthModule {}

@@ -6,12 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -26,10 +28,19 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('info')
+  getinfo(@Req() req: any){
+
+    return this.usersService.findOne(req.user.sub);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
+
+
+
   @Get(':email')
   findByLogin(@Param('email') email: string) {
     return this.usersService.findByEmail(email);
