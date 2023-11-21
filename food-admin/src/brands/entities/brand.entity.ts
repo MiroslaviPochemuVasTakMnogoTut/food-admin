@@ -20,7 +20,7 @@ export class Brand {
   companyId: number;
 
   @ManyToOne(() => Company, com => com.brands)
-  @JoinColumn({name: 'comanyId'})
+  // @JoinColumn({name: 'companyId'})
   company: Company;
 
   @IsString()
