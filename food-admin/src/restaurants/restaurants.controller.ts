@@ -13,6 +13,7 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
+import { Public } from 'src/auth/auth.guard';
 
 @ApiTags('Restaurants')
 @Controller('restaurants')
@@ -25,11 +26,13 @@ export class RestaurantsController {
     return this.restaurantsService.create(createRestaurantDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.restaurantsService.findAll();
   }
-
+  
+  @Public()
   @Get(':id')
   findOne(@Param('id',ParseIntPipe) id: number) {
     return this.restaurantsService.findOne(id);

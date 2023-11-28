@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Token } from './entities/auth.entity';
 import { Repository } from 'typeorm';
@@ -17,7 +17,13 @@ export class AuthService {
   ){}
 
   signup(createUserDto: CreateUserDto){
-    return this.usersService.create(createUserDto);
+    if (this.usersService.findByEmail(createUserDto.email) === null) {
+      return this.usersService.create(createUserDto);
+    }
+    else{
+      throw new ConflictException('Email is buisy');
+    }
+
   }
   
   async login(createAuthDto: CreateAuthDto) {

@@ -19,7 +19,7 @@ export class Order {
   status: string;
   
   
-  @Column({ default: () => 'NOW()' })
+  @Column({ default: () => 'NOW()' })// TODO
   created_at: Date;
   
   @Column()

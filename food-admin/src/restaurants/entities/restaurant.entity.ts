@@ -50,7 +50,7 @@ export class Restaurant {
   time: string;
 
   @Column({type: 'geometry', spatialFeatureType: 'point', srid: 4326, nullable: true})
-  geometry:Point
+  geometry:Point;
   
   @OneToMany(
     () => RestaurantEmployee,
