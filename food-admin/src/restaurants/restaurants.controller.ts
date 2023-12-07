@@ -7,14 +7,18 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 import { Public } from 'src/auth/auth.guard';
+import { PointFromStringPipe } from 'src/point-from-string/point-from-string.pipe';
+import { Point } from 'typeorm';
 
+@ApiBearerAuth()
 @ApiTags('Restaurants')
 @Controller('restaurants')
 export class RestaurantsController {
@@ -25,11 +29,16 @@ export class RestaurantsController {
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
   }
-
+  
   @Public()
   @Get()
   findAll() {
     return this.restaurantsService.findAll();
+  }
+
+  @Get('distance')
+  findByDistance(@Query('coords', PointFromStringPipe) coords: Point, @Query('distance') distance: string) {
+    return this.restaurantsService.findByDistance(coords, +distance);
   }
   
   @Public()
@@ -50,6 +59,7 @@ export class RestaurantsController {
   remove(@Param('id') id: string) {
     return this.restaurantsService.remove(+id);
   }
+
 
   @Post('addToMenu')
   addToMenu(@Body() addItemToMenuDto: AddItemToMenuDto){

@@ -3,7 +3,7 @@ import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
-import { Repository } from 'typeorm';
+import { Point, Repository } from 'typeorm';
 import { MenuItem } from './entities/menu_item.entity';
 import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 
@@ -81,5 +81,13 @@ export class RestaurantsService {
   addToMenu(addItemToMenu: AddItemToMenuDto){
     const menuItem = this.menuRepository.create(addItemToMenu);
     return this.menuRepository.save(menuItem);
+  }
+
+  findByDistance(point: Point, distance: number) {
+
+    return this.restaurantRepository.createQueryBuilder('restaurant').where(`ST_Distance(
+      st_transform(
+        st_geomfromgeojson(:point), 3857),
+        st_transform(geometry,3857)) < :distance`, {point, distance}).getMany();
   }
 }
