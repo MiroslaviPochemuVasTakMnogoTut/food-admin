@@ -12,7 +12,7 @@ import {
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 import { Public } from 'src/auth/auth.guard';
 import { PointFromStringPipe } from 'src/point-from-string/point-from-string.pipe';
@@ -36,6 +36,7 @@ export class RestaurantsController {
     return this.restaurantsService.findAll();
   }
 
+  @ApiQuery({name: 'coords', type: 'string'})
   @Get('distance')
   findByDistance(@Query('coords', PointFromStringPipe) coords: Point, @Query('distance') distance: string) {
     return this.restaurantsService.findByDistance(coords, +distance);

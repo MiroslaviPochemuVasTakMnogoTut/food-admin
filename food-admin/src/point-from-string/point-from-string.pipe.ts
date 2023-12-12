@@ -1,6 +1,7 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
 import { BadRequestException } from '@nestjs/common/exceptions';
+import { Point } from 'typeorm';
 
 @Injectable()
 export class PointFromStringPipe implements PipeTransform {
@@ -23,7 +24,6 @@ export class PointFromStringPipe implements PipeTransform {
       throw new BadRequestException();
     }
 
-    
-    return { type: 'Point', coordinates };
+    return { type: 'Point', coordinates } as Point;
   }
 }
