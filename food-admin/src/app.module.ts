@@ -17,17 +17,22 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Restaurant } from './restaurants/entities/restaurant.entity';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.${process.env.NODE_ENV}.env`,
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 15432,
-      username: 'admin',
-      password: '123',
-      database: 'FoodBase',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
       autoLoadEntities: true,
@@ -47,7 +52,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
     RestaurantEmployeesModule,
     AuthModule,
     CategoryModule,
-    // RestEmpModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],

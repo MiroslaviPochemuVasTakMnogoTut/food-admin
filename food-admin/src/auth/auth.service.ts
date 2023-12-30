@@ -60,7 +60,8 @@ export class AuthService {
     await this.TokenRepository.save(token)
 
     const payload = {sub: user.id, username: user.email}
-    const access_token =  await this.jwtService.signAsync(payload)
+    const access_token =  await this.jwtService.signAsync(payload, {secret: process.env.JWT_SECRET, 
+                                                                    expiresIn: process.env.JWT_TTL + 'm'})
     return {access_token,
             refresh_token: token.token}
 

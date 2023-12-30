@@ -34,7 +34,7 @@ export class AuthController {
   async login(@Body() createAuthDto: CreateAuthDto, @Res({passthrough: true}) response: Response) {
     const { access_token, refresh_token} = await this.authService.login(createAuthDto);
 
-    response.cookie('refresh', refresh_token, {httpOnly: true, maxAge: 30000000});
+    response.cookie('refresh', refresh_token, {httpOnly: true, maxAge: +process.env.REFRESH_TTL*1000*60});
     return {access_token};
   }
   
@@ -56,7 +56,7 @@ export class AuthController {
 
     const {access_token, refresh_token} = await this.authService.refresh(token);
 
-    response.cookie('refresh', refresh_token, {httpOnly: true, maxAge: 30000});
+    response.cookie('refresh', refresh_token, {httpOnly: true, maxAge: +process.env.REFRESH_TTL*1000*60});
 
     return {access_token};
   }

@@ -24,6 +24,12 @@ export class OrdersService {
     return this.orderRepository.findOneBy({id});
   }
 
+  findByUID(uid:number){
+    return this.orderRepository.find({where:{
+      uid
+    }})
+  }
+
   update(id: number, updateOrderDto: UpdateOrderDto) {
     return `This action updates a #${id} order`;
   }
