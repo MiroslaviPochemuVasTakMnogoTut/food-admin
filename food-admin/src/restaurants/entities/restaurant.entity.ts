@@ -18,6 +18,7 @@ import { Item } from 'src/items/entities/item.entity';
 import { MenuItem } from './menu_item.entity';
 import { Category } from 'src/category/entities/category.entity';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { IsInt, IsString } from 'class-validator';
 
 @ObjectType()
 @Entity()
@@ -31,19 +32,23 @@ export class Restaurant {
 
   @Field({nullable:true})
   @Column({nullable: true})
+  @IsString()
   description: string;
-
+  
   @Column({nullable: true})
+  @IsString()
   img: string;
-
+  
   @Field({nullable:true})
   @Column({nullable: true})
   address: string;
-
+  
   @Column({nullable: true})
+  @IsInt()
   costs: number;
   
   @Column({nullable: true})
+  @IsString()
   phone: string;
   
   @Column({nullable: true})
@@ -56,10 +61,8 @@ export class Restaurant {
     () => RestaurantEmployee,
     (restaurantEmployee) => restaurantEmployee.restaurant,
     )
-    
   employees: RestaurantEmployee[];
-
-  
+ 
   // // @JoinTable()
   // @OneToMany(() => MenuItem, (item) => item.restaurant)
   // menu: MenuItem[];
