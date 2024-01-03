@@ -10,10 +10,12 @@ import {
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/auth/auth.guard';
 
 @ApiTags('Brands')
 @Controller('brands')
+@ApiBearerAuth()
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
@@ -23,6 +25,7 @@ export class BrandsController {
   }
 
   @Get()
+  // @Public()
   findAll() {
     return this.brandsService.findAll();
   }
