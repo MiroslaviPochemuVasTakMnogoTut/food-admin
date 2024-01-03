@@ -13,6 +13,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
+import { AddOrderItemDto } from './dto/add-orderItem.dto';
 
 @ApiBearerAuth()
 @ApiTags('Orders')
@@ -28,6 +29,11 @@ export class OrdersController {
   @Get()
   findAll() {
     return this.ordersService.findAll();
+  }
+
+  @Post('add_to_order')
+  add_to_order(@Body() addToOrder: AddOrderItemDto) {
+    this.ordersService.addToOrder(addToOrder);
   }
 
   @Get('myorders')
