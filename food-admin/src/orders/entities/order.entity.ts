@@ -2,10 +2,9 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { IsInt, IsString } from 'class-validator';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ItemOrder } from './item_order';
 
-@ApiBearerAuth()
 @Entity({ name: 'order' })
 export class Order {
   @PrimaryGeneratedColumn()
@@ -21,10 +20,9 @@ export class Order {
 
   @Column()
   @IsString()
-  status: string;
+  status: string;  
   
-  
-  @Column({ default: () => 'NOW()' })// TODO
+  @CreateDateColumn()
   created_at: Date;
   
   @Column({nullable: true})
