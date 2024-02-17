@@ -13,7 +13,7 @@ export class User {
   name: string;
 
   @Index()
-  @Column()
+  @Column({unique: true })
   email: string;
 
   @Column({ default: 'false' })
