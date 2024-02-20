@@ -34,6 +34,23 @@ export class OrdersService {
       } 
     });
   }
+  findByRest(rid: number) {
+    return this.orderRepository.find({ 
+      where: {restid: rid},
+      relations: {        
+        items: true, 
+      } ,
+      select:['id', 'restid']
+    });
+  }
+  // findByRest(rid: number) {
+  //   return this.orderRepository.createQueryBuilder('order')
+  //     .select(['order.id', 'order.restid'])
+  //     .leftJoinAndSelect('order.items', 'item')
+  //     .where('order.restid = :rid', { rid })
+  //     .getMany();
+  // }
+
 
   findByUID(uid: number) {
     return this.orderRepository.find({

@@ -41,6 +41,10 @@ export class OrdersController {
     // return req;
     return this.ordersService.findByUID(req.user.sub);
   }
+  @Get('byrest:id')
+  findOneByRest(@Param('id') id: string) {
+    return this.ordersService.findByRest(+id);
+  }
   
   @Get(':id')
   findOne(@Param('id') id: string) {
