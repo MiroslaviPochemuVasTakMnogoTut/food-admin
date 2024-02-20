@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,8 +13,14 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    const user = this.usersRepository.create(createUserDto);
-    return this.usersRepository.save(user);
+    if (this.findByEmail(createUserDto.email) === null) {
+      const user = this.usersRepository.create(createUserDto);
+      return this.usersRepository.save(user);
+    }
+    else{
+      throw new ConflictException('Email is buisy');
+    }
+    
   }
 
   findAll() {

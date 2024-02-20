@@ -12,8 +12,8 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private orderRepository: Repository<Order>,
-    @InjectRepository(ItemOrder) 
-    private itemRepository : Repository<ItemOrder>,
+    @InjectRepository(ItemOrder)
+    private itemRepository: Repository<ItemOrder>,
 
   ) { }
 
@@ -27,11 +27,11 @@ export class OrdersService {
   }
 
   findOne(id: number) {
-    return this.orderRepository.findOne({ 
-      where: {id},
+    return this.orderRepository.findOne({
+      where: { id },
       relations: {
-        items: true, 
-      } 
+        items: true,
+      }
     });
   }
   findByRest(rid: number) {
@@ -63,14 +63,14 @@ export class OrdersService {
     })
   }
 
-  addToOrder(addToOrderDto: AddOrderItemDto){
+  addToOrder(addToOrderDto: AddOrderItemDto) {
     const item = this.itemRepository.create(addToOrderDto);
     return this.itemRepository.save(item);
   }
 
-  async removeFromOrder(orderId:number, itemId: number){
+  async removeFromOrder(orderId: number, itemId: number) {
     const rm = await this.itemRepository.findOneByOrFail({
-      itemId, 
+      itemId,
       orderId,
     })
     return this.itemRepository.delete(rm.id)

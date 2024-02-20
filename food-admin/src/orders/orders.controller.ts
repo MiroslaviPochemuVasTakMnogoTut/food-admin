@@ -19,11 +19,18 @@ import { AddOrderItemDto } from './dto/add-orderItem.dto';
 @ApiTags('Orders')
 @Controller('orders')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {}
-
+  constructor(private readonly ordersService: OrdersService) { }
+  
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.create(createOrderDto);
+  }
+  
+  @Post('add_to_order')
+  add_to_order(@Body() addToOrder: AddOrderItemDto) {
+    const value = this.ordersService.addToOrder(addToOrder);
+    console.log(value);
+    return value;
   }
 
   @Get()
@@ -31,13 +38,8 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  @Post('add_to_order')
-  add_to_order(@Body() addToOrder: AddOrderItemDto) {
-    this.ordersService.addToOrder(addToOrder);
-  }
-
   @Get('myorders')
-  myorders(@Req() req: any){
+  myorders(@Req() req: any) {
     // return req;
     return this.ordersService.findByUID(req.user.sub);
   }
@@ -50,7 +52,7 @@ export class OrdersController {
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(+id);
   }
-  
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.ordersService.update(+id, updateOrderDto);

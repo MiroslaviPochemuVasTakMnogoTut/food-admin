@@ -1,6 +1,6 @@
 import { Order } from 'src/orders/entities/order.entity';
 import { RestaurantEmployee } from 'src/restaurant-employees/entities/restaurant-employee.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, Index } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, Index, UpdateDateColumn } from 'typeorm';
 
 @Entity({
   name: 'user',
@@ -13,7 +13,7 @@ export class User {
   name: string;
 
   @Index()
-  @Column()
+  @Column({unique: true })
   email: string;
 
   @Column({ default: 'false' })
@@ -26,7 +26,7 @@ export class User {
   @CreateDateColumn()
   created_at: Date;
 
-  @Column({ default: () => 'NOW()' })
+  @UpdateDateColumn()
   udated_at: Date;
 
   ///////////////////////////////////////
