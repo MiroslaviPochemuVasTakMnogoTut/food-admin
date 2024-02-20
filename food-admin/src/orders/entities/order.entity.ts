@@ -12,11 +12,11 @@ export class Order {
 
   @ManyToOne(() => User)
   @IsInt()
-  uid: number;
+  user: User;
   
   @ManyToOne(() => Restaurant)
   @IsInt()
-  restid: number;
+  rest: Restaurant;
 
   @Column()
   @IsString()

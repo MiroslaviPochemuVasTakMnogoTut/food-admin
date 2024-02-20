@@ -14,11 +14,11 @@ export class ItemOrder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({name: 'itemId'})
   @IsInt()
   itemId: number;
   
-  @Column()
+  @Column({name: 'orderId'})
   @IsInt()
   orderId: number;
   
@@ -30,7 +30,7 @@ export class ItemOrder {
   @IsString()
   note: string;
 
-  @ManyToOne(()=>Order)
+  @ManyToOne(()=>Order, (order) => order.items )
   @JoinColumn({name: 'orderId'})
   order: Order;
 
