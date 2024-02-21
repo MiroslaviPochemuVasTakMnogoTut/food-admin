@@ -23,7 +23,11 @@ export class OrdersService {
   }
 
   findAll() {
-    return this.orderRepository.find();
+    return this.orderRepository.find({
+      relations:{
+        items:true
+      }
+    });
   }
 
   findOne(id: number) {
@@ -34,28 +38,29 @@ export class OrdersService {
       }
     });
   }
-  findByRest(rid: number) {
-    return this.orderRepository.find({ 
+  async findByRest(rid: number) {
+    const value = await this.orderRepository.find({ 
       where: {rest: {
         id: rid
       }},
       relations: {        
-        items: true, 
-      } ,
-      select:['id', 'rest']
+        items: true,
+        rest: true,
+        user: true,
+      },
+      select:{
+        id: true,
+        rest: { id: true },
+        user: { id: true },
+        items: true
+      }
     });
+    return value;
   }
-  // findByRest(rid: number) {
-  //   return this.orderRepository.createQueryBuilder('order')
-  //     .select(['order.id', 'order.restid'])
-  //     .leftJoinAndSelect('order.items', 'item')
-  //     .where('order.restid = :rid', { rid })
-  //     .getMany();
-  // }
 
 
   async findByUID(uid: number) {
-    console.log(`requested orders for: ` + uid)
+    // console.log(`requested orders for: ` + uid)
     const value = await this.orderRepository.find({
       where: {
         user: {
@@ -66,7 +71,7 @@ export class OrdersService {
         items: true,
       }
     })
-    console.log(value);
+    // console.log(value);
     return value;
   }
 
