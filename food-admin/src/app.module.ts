@@ -18,6 +18,8 @@ import { Restaurant } from './restaurants/entities/restaurant.entity';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ConfigModule } from '@nestjs/config';
+import { WaiterGateway } from './waiter/waiter.gateway';
+import { WaiterModule } from './waiter/waiter.module';
 
 
 @Module({
@@ -52,7 +54,7 @@ import { ConfigModule } from '@nestjs/config';
     RestaurantEmployeesModule,
     AuthModule,
     CategoryModule,
-    
+    WaiterModule,
   ],
   controllers: [AppController],
   providers: [AppService],

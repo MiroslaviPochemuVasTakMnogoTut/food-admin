@@ -31,7 +31,7 @@ export class User {
 
   ///////////////////////////////////////
 
-  @OneToMany(()=> Order, (order) => order.uid)
+  @OneToMany(()=> Order, (order) => order.user)
   orders: Order[];
 
   @OneToMany(
