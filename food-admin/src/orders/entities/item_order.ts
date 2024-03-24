@@ -23,6 +23,8 @@ export class ItemOrder {
   @Column()
   amount: number;
 
+  @Column({default: false})
+  isComplete: boolean
 
   @Column({default: ''})
   note: string;
