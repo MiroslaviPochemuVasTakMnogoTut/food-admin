@@ -52,7 +52,10 @@ export class OrdersService {
         id: true,
         rest: { id: true },
         user: { id: true },
-        items: true
+        items: true,
+        created_at: true,
+        completed_at: true,
+        status:true
       }
     });
     return value;
