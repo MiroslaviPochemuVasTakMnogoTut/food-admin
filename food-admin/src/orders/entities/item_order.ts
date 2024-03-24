@@ -24,7 +24,7 @@ export class ItemOrder {
   amount: number;
 
 
-  @Column()
+  @Column({default: ''})
   note: string;
 
   @ManyToOne(()=>Order, (order) => order.items )
