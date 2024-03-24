@@ -21,6 +21,7 @@ export class Order {
   @IsInt()
   rest: Restaurant;
 
+  @ApiProperty({default: 'cooking', example: 'ready', description: 'Order status'})
   @Column()
   @IsString()
   status: string;  

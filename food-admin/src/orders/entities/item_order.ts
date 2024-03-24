@@ -15,19 +15,16 @@ export class ItemOrder {
   id: number;
 
   @Column({name: 'itemId'})
-  @IsInt()
   itemId: number;
   
   @Column({name: 'orderId'})
-  @IsInt()
   orderId: number;
   
   @Column()
-  @IsInt()
   amount: number;
 
+
   @Column()
-  @IsString()
   note: string;
 
   @ManyToOne(()=>Order, (order) => order.items )

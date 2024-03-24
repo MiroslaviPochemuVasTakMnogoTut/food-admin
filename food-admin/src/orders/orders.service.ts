@@ -24,8 +24,18 @@ export class OrdersService {
 
   findAll() {
     return this.orderRepository.find({
-      relations:{
-        items:true
+      relations: {
+        items: {
+          item: true,
+        },
+        user: true
+      },
+      select: {
+        items: true,
+        user: {
+          id: true,
+          name: true
+        }
       }
     });
   }
@@ -34,28 +44,45 @@ export class OrdersService {
     return this.orderRepository.findOne({
       where: { id },
       relations: {
+        items: {
+          item:true
+        },
+        user: true
+      },
+      select: {
         items: true,
+        user: {
+          id: true,
+          name: true
+        }
       }
     });
   }
   async findByRest(rid: number) {
-    const value = await this.orderRepository.find({ 
-      where: {rest: {
-        id: rid
-      }},
-      relations: {        
-        items: true,
+    const value = await this.orderRepository.find({
+      where: {
+        rest: {
+          id: rid
+        }
+      },
+      relations: {
+        items: {
+          item: true
+        },
         rest: true,
         user: true,
       },
-      select:{
+      select: {
         id: true,
         rest: { id: true },
-        user: { id: true },
+        user: {
+          id: true,
+          name: true
+        },
         items: true,
         created_at: true,
         completed_at: true,
-        status:true
+        status: true
       }
     });
     return value;
@@ -71,7 +98,17 @@ export class OrdersService {
         },
       },
       relations: {
+        items: {
+          item: true
+        },
+        user: true
+      },
+      select: {
         items: true,
+        user: {
+          id: true,
+          name: true
+        }
       }
     })
     // console.log(value);
