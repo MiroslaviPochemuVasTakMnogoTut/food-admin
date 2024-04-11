@@ -26,6 +26,11 @@ export class Order {
   @IsString()
   status: string;  
   
+  @ApiProperty({default: '', example: 'Order\'s note', description: 'Order status'})
+  @Column({default: ''})
+  @IsString()
+  note: string;
+  
   @CreateDateColumn()
   created_at: Date;
   
