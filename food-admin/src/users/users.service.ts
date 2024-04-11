@@ -13,13 +13,13 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    if (this.findByEmail(createUserDto.email) === null) {
+    // if (this.findByEmail(createUserDto.email) === null) {
       const user = this.usersRepository.create(createUserDto);
       return this.usersRepository.save(user);
-    }
-    else{
-      throw new ConflictException('Email is buisy');
-    }
+    // }
+    // else{
+    //   throw new ConflictException('Email is buisy');
+    // }
     
   }
 
