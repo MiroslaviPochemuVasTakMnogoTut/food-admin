@@ -22,8 +22,10 @@ export class AuthService {
     private jwtService: JwtService,
   ){}
 
-  signup(createUserDto: CreateUserDto){
-    if (this.usersService.findByEmail(createUserDto.email) === null) {
+  async signup(createUserDto: CreateUserDto){
+    const user = await this.usersService.findByEmail(createUserDto.email)
+    // console.log(st)
+    if (user === null) {
       return this.usersService.create(createUserDto);
     }
     else{
