@@ -50,7 +50,7 @@ export class UsersService {
   
 
   findByEmail(email: string) {
-    return this.usersRepository.findOneBy({email});
+    return this.usersRepository.findOne({ where: {email}, relations: {salt: true} });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

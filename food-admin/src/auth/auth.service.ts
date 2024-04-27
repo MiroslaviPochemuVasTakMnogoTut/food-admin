@@ -40,9 +40,11 @@ export class AuthService {
   
   async login(createAuthDto: CreateAuthDto) {
     const user = await this.usersService.findByEmail(createAuthDto.login)
-    const isPswdMatch = bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
+    console.log(user);
+    const isPswdMatch = await bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
     console.log(`Result ${isPswdMatch}`);
-    if (user?.passwd !== createAuthDto.passwd) {
+    // if (user?.passwd !== createAuthDto.passwd) {
+      if (!isPswdMatch) {
       throw new UnauthorizedException('Wrong password or login');
     }
 
