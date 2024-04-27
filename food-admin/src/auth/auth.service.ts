@@ -12,12 +12,16 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/entities/user.entity';
 import { randomUUID } from 'crypto';
+import * as bcrypt from 'bcrypt';
+import { Salt } from './entities/salt.entity';
 
 @Injectable()
 export class AuthService {
   constructor (
     @InjectRepository(Token)
     private TokenRepository: Repository<Token>,
+    @InjectRepository(Salt)
+    private saltRepository: Repository<Salt>,
     private usersService: UsersService,
     private jwtService: JwtService,
   ){}
@@ -36,6 +40,8 @@ export class AuthService {
   
   async login(createAuthDto: CreateAuthDto) {
     const user = await this.usersService.findByEmail(createAuthDto.login)
+    const isPswdMatch = bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
+    console.log(`Result ${isPswdMatch}`);
     if (user?.passwd !== createAuthDto.passwd) {
       throw new UnauthorizedException('Wrong password or login');
     }

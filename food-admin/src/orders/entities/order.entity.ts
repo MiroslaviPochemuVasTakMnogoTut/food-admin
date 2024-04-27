@@ -12,12 +12,12 @@ export class Order {
   id: number;
 
   @ApiProperty({default: 1, example: '1', description: 'User ID'})
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'SET NULL'})
   @IsInt()
   user: User;
   
   @ApiProperty({default: 1, example: '1', description: 'Restaurant ID'})
-  @ManyToOne(() => Restaurant)
+  @ManyToOne(() => Restaurant,{ onDelete: 'SET NULL'})
   @IsInt()
   rest: Restaurant;
 
@@ -37,6 +37,6 @@ export class Order {
   @Column({nullable: true})
   completed_at: Date;
 
-  @OneToMany(() => ItemOrder, itemo => itemo.order)
+  @OneToMany(() => ItemOrder, itemo => itemo.order, { onDelete: 'CASCADE'})
   items: ItemOrder[];
 }

@@ -9,6 +9,7 @@ import { UsersService } from 'src/users/users.service';
 // import { User } from 'src/users/entities/user.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
+import { Salt } from './entities/salt.entity';
 
 
 
@@ -16,7 +17,7 @@ import { AuthGuard } from './auth.guard';
 @Module({
   controllers: [AuthController],
   imports: [
-    TypeOrmModule.forFeature([Token]),
+    TypeOrmModule.forFeature([Token, Salt]),
     UsersModule,
     JwtModule.register({
       global: true,

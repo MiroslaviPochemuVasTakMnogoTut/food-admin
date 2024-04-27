@@ -5,12 +5,12 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center"> Серверная часть для сервиса самообслуживания для организаций быстрого питания + админ-панель
+  <p align="center"> Серверная часть сервиса самообслуживания организаций общественного питания
     <p align="center">
 
 
 ## Description
 
-Backend + админка ресторана
+Backend
 
 

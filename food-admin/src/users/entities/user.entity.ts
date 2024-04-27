@@ -1,9 +1,11 @@
+import { Salt } from 'src/auth/entities/salt.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { RestaurantEmployee } from 'src/restaurant-employees/entities/restaurant-employee.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, Index, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, Index, UpdateDateColumn, OneToOne } from 'typeorm';
 
 @Entity({
   name: 'user',
+
 })
 export class User {
   @PrimaryGeneratedColumn()
@@ -13,7 +15,7 @@ export class User {
   name: string;
 
   @Index()
-  @Column({unique: true })
+  @Column({ unique: true })
   email: string;
 
   @Column({ default: 'false' })
@@ -31,15 +33,20 @@ export class User {
 
   ///////////////////////////////////////
 
-  @OneToMany(()=> Order, (order) => order.user)
+  @OneToMany(() => Order, (order) => order.user,{ onDelete: 'SET NULL'})
   orders: Order[];
 
   @OneToMany(
     () => RestaurantEmployee,
-    (restaurantEmployee) => restaurantEmployee.employee,
+    (restaurantEmployee) => restaurantEmployee.employee,{ onDelete: 'SET NULL'}
   )
   works: RestaurantEmployee[];
+
+  @OneToOne(() => Salt, salt => salt.user,{ onDelete: 'CASCADE'})
+  salt: Salt;
 }
+
+
 //   @Column()
 //   lastName: string;
 //   @Column({ default: true })

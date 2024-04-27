@@ -9,9 +9,6 @@ export class Token {
   @Column()
   token: string;
 
-  // @Column()
-  // uid: number;
-
-  @ManyToOne(()=>User)
+  @ManyToOne(()=>User, { onDelete: 'CASCADE'})
   user: User;
 }
