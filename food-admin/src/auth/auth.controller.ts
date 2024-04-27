@@ -15,6 +15,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { Public } from './auth.guard';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { Response, Request, response} from 'express'
+import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { ChangePasswordDto } from './dto/change-passwd.dto';
 
 @ApiTags('Auth')
 @Public()
@@ -59,5 +62,12 @@ export class AuthController {
     response.cookie('refresh', refresh_token, {httpOnly: true, maxAge: +process.env.REFRESH_TTL*1000*60});
 
     return {access_token};
+  }
+
+  @Post('changePasswd')
+  async changePasswd(@Req() request: any, @Body() changePasswordDto: ChangePasswordDto){
+    const token = request.cookies.refresh;
+    if (!token){ throw new UnauthorizedException()}
+    this.authService.changePasswd(request.user.sub, changePasswordDto);
   }
 }

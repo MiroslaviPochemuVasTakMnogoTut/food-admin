@@ -54,6 +54,7 @@ export class UsersService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
+    
     return this.usersRepository.update(
       {
         id,

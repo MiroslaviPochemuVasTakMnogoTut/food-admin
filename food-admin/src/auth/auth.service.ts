@@ -14,6 +14,9 @@ import { User } from 'src/users/entities/user.entity';
 import { randomUUID } from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { Salt } from './entities/salt.entity';
+import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { ChangePasswordDto } from './dto/change-passwd.dto';
 
 @Injectable()
 export class AuthService {
@@ -43,7 +46,9 @@ export class AuthService {
     console.log(user);
     const isPswdMatch = await bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
     console.log(`Result ${isPswdMatch}`);
-    // if (user?.passwd !== createAuthDto.passwd) {
+    if (user?.passwd == createAuthDto.passwd) {
+
+    }
       if (!isPswdMatch) {
       throw new UnauthorizedException('Wrong password or login');
     }
@@ -66,14 +71,18 @@ export class AuthService {
   }
 
   private async generate_token(user: User){
-    const token  = this.TokenRepository.create({user, token: randomUUID()})
-    await this.TokenRepository.save(token)
+    const token  = this.TokenRepository.create({user, token: randomUUID()});
+    await this.TokenRepository.save(token);
 
-    const payload = {sub: user.id, username: user.email}
+    const payload = {sub: user.id, username: user.email};
     const access_token =  await this.jwtService.signAsync(payload, {secret: process.env.JWT_SECRET, 
-                                                                    expiresIn: process.env.JWT_TTL + 'm'})
+                                                                    expiresIn: process.env.JWT_TTL + 'm'});
     return {access_token,
             refresh_token: token.token}
 
+  }
+  async changePasswd(id: number, changePasswdDto: ChangePasswordDto){
+    const updateUserDto = {passwd: changePasswdDto.newpasswd};
+    this.usersService.update(id, updateUserDto);
   }
 }
