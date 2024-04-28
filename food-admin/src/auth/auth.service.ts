@@ -47,13 +47,12 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    // console.log(user);
-    const isPswdMatch = await bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
-    // console.log(`Result ${isPswdMatch}`);
-    if (user?.passwd == createAuthDto.passwd) {
-
+    if (!user.salt || user.passwd === createAuthDto.passwd) {
+      this.usersService.updatePasswd(user.id);
     }
-      if (!isPswdMatch) {
+    const isPswdMatch = await bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
+    
+    if (!isPswdMatch) {
       throw new UnauthorizedException('Wrong password or login');
     }
 

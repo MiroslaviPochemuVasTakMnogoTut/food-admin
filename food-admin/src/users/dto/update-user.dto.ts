@@ -3,5 +3,5 @@ import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
     // readonly oldpasswd: string;
-    readonly passwd?: string;
+    passwd?: string;
 }
