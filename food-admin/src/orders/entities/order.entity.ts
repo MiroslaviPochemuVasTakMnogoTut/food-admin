@@ -26,6 +26,14 @@ export class Order {
   @IsString()
   status: string;  
   
+  @ApiProperty({default: '', example: 'first window table', description: 'Table'})
+  @Column({default: ''})
+  table: string;
+  
+  @ApiProperty({default: false, example: true})
+  @Column({default: false})
+  isOutside: boolean;
+  
   @ApiProperty({default: '', example: 'Order\'s note', description: 'Order status'})
   @Column({default: ''})
   @IsString()
