@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -42,10 +43,13 @@ export class AuthService {
   }
   
   async login(createAuthDto: CreateAuthDto) {
-    const user = await this.usersService.findByEmail(createAuthDto.login)
-    console.log(user);
+    const user = await this.usersService.findByEmail(createAuthDto.login);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    // console.log(user);
     const isPswdMatch = await bcrypt.compare(createAuthDto.passwd + user.salt.someNumbers, user?.passwd);
-    console.log(`Result ${isPswdMatch}`);
+    // console.log(`Result ${isPswdMatch}`);
     if (user?.passwd == createAuthDto.passwd) {
 
     }
@@ -82,7 +86,7 @@ export class AuthService {
 
   }
   async changePasswd(id: number, changePasswdDto: ChangePasswordDto){
-    const updateUserDto = {passwd: changePasswdDto.newpasswd};
+    const updateUserDto = {passwd: changePasswdDto.newpasswd} as UpdateUserDto;
     this.usersService.update(id, updateUserDto);
   }
 }
