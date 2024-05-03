@@ -16,7 +16,7 @@ run-dev:
 build:
 	docker build . -t food_cont
 
-somerun:
+somerun: # -v ${pwd} -- рабочая директория
 	docker run -v ${pwd}:/app -p 4000:4000 --name app food_cont
 # cd src 
 # cd ..
