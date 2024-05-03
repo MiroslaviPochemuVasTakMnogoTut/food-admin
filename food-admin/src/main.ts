@@ -5,9 +5,16 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
+
+  console.log(process.env.NODE_ENV);
+  if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = '';
+  }
+  console.log(process.env.NODE_ENV);
   const app = await NestFactory.create(AppModule);
 
-  if (process.env.NODE_ENV === "dev") {
+
+  if (process.env.NODE_ENV === ".dev") {
     const config = new DocumentBuilder()
       .setTitle('Restaurant api')
       .setDescription('The cats API description')
