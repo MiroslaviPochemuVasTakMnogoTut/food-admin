@@ -18,8 +18,9 @@ RUN npm run build:linux
 FROM node:20-alpine
 WORKDIR /app
 COPY --from=build /app/dist ./dist
-ADD .prod.env .
+# ADD .prod.env .
 ADD *.json .
 RUN npm ci --omit=dev --force
-RUN npm i cross-env
-CMD ["npm","run", "start:container"]
+# RUN npm i cross-env
+# CMD ["npm","run", "start:container"]
+CMD ["node", "./dist/main.js"]

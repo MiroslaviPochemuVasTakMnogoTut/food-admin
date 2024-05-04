@@ -5,8 +5,12 @@ services:
     build: ./food-admin/
     ports:
       - 3000:4000
-    volumes:
-      - ./food-admin/.prod.env:/app/.prod.env
+    environment:
+      - NODE_ENV=.dev
+    env_file:
+      - ./food-admin/.prod.env
+    # volumes:
+    #   - ./food-admin/.prod.env:/app/.prod.env
     networks:
       - postgres
     
