@@ -17,18 +17,18 @@ export class CategoryService {
   }
 
   findAll() {
-    return `This action returns all category`;
+    return this.categoryRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} category`;
+    return this.categoryRepository.findOneBy({id});
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+    return this.categoryRepository.update({id}, updateCategoryDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} category`;
+    return this.categoryRepository.delete(id);
   }
 }
