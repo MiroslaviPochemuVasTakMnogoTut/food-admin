@@ -2,13 +2,14 @@ version: "3.5"
 
 services:
   server:
+    container_name: server
     build: ./food-admin/
-    ports:
-      - 3000:4000
+    env_file:
+      - ./.env
     environment:
       - NODE_ENV=.dev
-    env_file:
-      - ./food-admin/.prod.env
+    ports:
+      - ${APP_PORT}:${APP_PORT}
     # volumes:
     #   - ./food-admin/.prod.env:/app/.prod.env
     networks:
@@ -30,6 +31,19 @@ services:
     networks:
       - postgres
     
+  app:
+    container_name: app
+    image: dimad2602/flutter_env_new:latest
+    
+    env_file:
+      - ./.env
+    environment:
+      - BACKEND_APIURL=http://diploma.punkrockov.ru:${APP_PORT}
+    networks:
+      - postgres
+    ports: 
+      - 80:80
+
 volumes:
   database: 
     
