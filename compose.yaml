@@ -14,7 +14,6 @@ services:
     #   - ./food-admin/.prod.env:/app/.prod.env
     networks:
       - postgres
-    
 
   db:
     container_name: foodbase
@@ -30,23 +29,23 @@ services:
       - database:/var/lib/postgresql/data
     networks:
       - postgres
-    
-  app:
-    container_name: app
-    image: dimad2602/flutter_env_new:latest
-    
-    env_file:
-      - ./.env
-    environment:
-      - BACKEND_APIURL=http://diploma.punkrockov.ru:${APP_PORT}
-    networks:
-      - postgres
-    ports: 
-      - 80:80
+
+  # app:
+  #   container_name: app
+  #   image: dimad2602/flutter_env_new:latest
+
+  #   env_file:
+  #     - ./.env
+  #   environment:
+  #     - BACKEND_APIURL=http://diploma.punkrockov.ru:${APP_PORT}
+  #   networks:
+  #     - postgres
+  #   ports:
+  #     - 80:80
 
 volumes:
-  database: 
-    
+  database:
+
 networks:
   postgres:
     driver: bridge
