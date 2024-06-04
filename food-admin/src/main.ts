@@ -17,8 +17,8 @@ async function bootstrap() {
   if (process.env.NODE_ENV === ".dev") {
     const config = new DocumentBuilder()
       .setTitle('Restaurant api')
-      .setDescription('The cats API description')
-      .setVersion('1.0')
+      .setDescription('Попробуйте выполнить GET запрос к сущности Restaurant')
+      .setVersion('ver.1.22474487139...')
       .setBasePath('')
       .addBearerAuth({
         description: 'Bearer JWT auth',

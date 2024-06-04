@@ -8,7 +8,6 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { SetMetadata } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { env } from 'process';
 
 export const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
@@ -23,24 +22,20 @@ constructor(private jwtService: JwtService, private reflector: Reflector){}
       context.getHandler(),
       context.getClass(),
     ]);
-    if (isPublic) {
-      // 💡 See this condition
-      return true;
-    }
+
+    if (isPublic) { return true; }
+
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    if (!token) {
-      throw new UnauthorizedException();
-    }
+
+    if (!token) { throw new UnauthorizedException(); } 
+
     try {
       const payload = await this.jwtService.verifyAsync(
         token,
-        {
-          secret: process.env.JWT_SECRET
-        }
+        { secret: process.env.JWT_SECRET }
       );
-      // 💡 We're assigning the payload to the request object here
-      // so that we can access it in our route handlers
+      // добавляем к запросу данные о пользователе из токена
       request['user'] = payload;
     } catch {
       throw new UnauthorizedException();
