@@ -25,6 +25,8 @@ export class RestaurantsController {
   constructor(
     private readonly restaurantsService: RestaurantsService,) {}
 
+
+  @ApiOperation({summary: 'Добавить ресторан'})
   @Post()
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
