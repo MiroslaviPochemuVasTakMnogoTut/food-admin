@@ -12,7 +12,7 @@ import {
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 import { Public } from 'src/auth/auth.guard';
 import { PointFromStringPipe } from 'src/point-from-string/point-from-string.pipe';
@@ -30,12 +30,14 @@ export class RestaurantsController {
     return this.restaurantsService.create(createRestaurantDto);
   }
   
+  @ApiOperation({summary: 'Получить все рестораны'})
   @Public()
   @Get()
   findAll() {
     return this.restaurantsService.findAll();
   }
-
+  
+  @ApiOperation({summary: 'Получить рестораны в радиусе от координаты'})
   @ApiQuery({name: 'coords', type: 'string'})
   @Get('distance')
   findByDistance(@Query('coords', PointFromStringPipe) coords: Point, @Query('distance') distance: string) {
@@ -43,11 +45,13 @@ export class RestaurantsController {
   }
   
   @Public()
+  @ApiOperation({summary: 'Получить рестораны в радиусе от координаты'})
   @Get(':id')
   findOne(@Param('id',ParseIntPipe) id: number) {
     return this.restaurantsService.findOne(id);
   }
-
+  
+  @ApiOperation({summary: 'Обновить информацию о ресторане'})
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -55,13 +59,15 @@ export class RestaurantsController {
   ) {
     return this.restaurantsService.update(+id, updateRestaurantDto);
   }
-
+  
+  @ApiOperation({summary: 'Удалить ресторан'})
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.restaurantsService.remove(+id);
   }
-
-
+  
+  
+  @ApiOperation({summary: 'Добавить в меню ресторана'})
   @Post('addToMenu')
   addToMenu(@Body() addItemToMenuDto: AddItemToMenuDto){
     // addItemToMenuDto.
