@@ -12,7 +12,7 @@ import {
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AddItemToMenuDto } from './dto/add-item-to-menu.dto';
 import { Public } from 'src/auth/auth.guard';
 import { PointFromStringPipe } from 'src/point-from-string/point-from-string.pipe';
@@ -47,7 +47,7 @@ export class RestaurantsController {
   }
   
   @Public()
-  @ApiOperation({summary: 'Получить рестораны в радиусе от координаты'})
+  @ApiOperation({summary: 'Получить ресторан по ID'})
   @Get(':id')
   findOne(@Param('id',ParseIntPipe) id: number) {
     return this.restaurantsService.findOne(id);
